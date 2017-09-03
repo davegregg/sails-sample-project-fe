@@ -1,0 +1,30 @@
+<ol class="breadcrumb">
+    <li class="active">Home</a></li>
+</ol>
+
+<br/>
+
+<%- partial ('../partials/statusmessage.ejs') %>
+
+<div id="recipes" class="container-fluid col-md-12 text-center">
+  <% if (!recipe.error) { %>
+    <a id="<%= recipe.id %>" class="recipe col-md-12">
+      <figure>
+        <img src="<%= recipe.recipePicture || 'http://via.placeholder.com/200x200' %>"/>
+        <figcaption>
+          <div class="name"><%= recipe.name %></div>
+          <div class="description"><%= recipe.description || '&nbsp;' %></div>
+        </figcaption>
+      </figure>
+    </a>
+  <% } else { %>
+    <div class="alert alert-danger" role="alert">
+      <p>
+        Error: <strong><%=: recipe.error | downcase %></strong>
+      </p>
+      <p>
+        <code><%-: JSON.stringify(recipe, null, 2) | replace:/,/g,',<br />' %></code>
+      </p>
+    </div>
+  <% } %>
+</div>

@@ -13,3 +13,31 @@ body {
         max-width: 1024px;
     }
 }
+
+.recipe,
+.recipe:link,
+.recipe:visited,
+.recipe:hover,
+.recipe:active {
+  color: black;
+  text-decoration: none;
+}
+
+.recipe img {
+  width: 200px;
+  height: 200px;
+}
+
+.recipe .name {
+  background: black;
+  color: white;
+  font-weight: bold;
+  /*font-size: 2em;*/
+}
+
+.recipe .description {
+  background-color: white;
+  color: black;
+  font-weight: normal;
+  font-size: 0.75em;
+}

@@ -25,10 +25,28 @@
  */
 
 (function(){
-
   $(function(){
 
-  	//code goes here
+    const form = $('#createRecipeForm')
+    const ingredients = $('#ingredientsTokenfield')
+
+    ingredients.tokenfield()
+
+    function submitForm(event) {
+      event.preventDefault()
+
+      const formData = form.serializeArray()
+      const ingredientsTokens = ingredients.tokenfield('getTokens')
+      for (let obj of ingredientsTokens) {
+        formData.push({ name: 'ingredients', value: obj.value })
+      }
+
+      $.post('http://localhost:1337/create', formData)
+    }
+
+    // TODO: const submitFormOnEnter = event => if (event.keyCode === 13) event.preventDefault()
+    // $('#searchtext').keypress(submitFormOnEnter)
+    form.submit(submitForm)
 
   })
 

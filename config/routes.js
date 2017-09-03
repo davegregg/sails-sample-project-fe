@@ -42,9 +42,11 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/create':'StudentController.create',
-  '/'      :'StudentController.read',
-  '/update':'StudentController.update',
-  '/delete':'StudentController.delete'
+  'GET /create'        :'RecipeController.create',
+  'POST /create'       :'RecipeController.create',
+  'GET /'              :'RecipeController.index',
+  'GET /:id'           :'RecipeController.show',
+  'GET /update/:id'    :'RecipeController.update',
+  'GET /destroy/:id'   :'RecipeController.destroy'
 
 };
