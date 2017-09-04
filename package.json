@@ -26,6 +26,7 @@
     "rc": "1.0.1",
     "sails": "~0.12.4",
     "sails-disk": "~0.10.9",
+    "sails-eslint": "^1.1.1",
     "sails-hook-flash": "^0.2.1"
   },
   "scripts": {
@@ -38,5 +39,14 @@
     "url": "git://github.com/eric/sailsFrontendDemo.git"
   },
   "author": "eric",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.3.0",
+    "sails-generate-eslintrc": "^1.4.0"
+  }
 }

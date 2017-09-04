@@ -9,8 +9,8 @@
  * 2. Use jQuery validate and add validation to the form with the following requirements
  *    First Name - required, at least 2 characters
  *    Last Name  - required, at least 2 characters
- *	  start_date - make sure date is yyyy-mm-dd
- *	  ADD any other validation that makes you happy
+ *    start_date - make sure date is yyyy-mm-dd
+ *    ADD any other validation that makes you happy
  *
  * 3. Use a custom message for one validation
  *
@@ -36,16 +36,22 @@
       event.preventDefault()
 
       const formData = form.serializeArray()
-      const ingredientsTokens = ingredients.tokenfield('getTokens')
+      const ingredientsTokens = (ingredients.tokenfield('getTokens').length)
+        ? ingredients.tokenfield('getTokens')
+        : [{ value: $('#ingredientsTokenfield-tokenfield').val() }]
       for (let obj of ingredientsTokens) {
-        formData.push({ name: 'ingredients', value: obj.value })
+        formData.push({
+          name: 'ingredients',
+          value: obj.value
+        })
       }
 
-      $.post('http://localhost:1337/create', formData)
+      console.log(`formData: ${JSON.stringify(formData, null, 2)}`)
+      $.post('http://localhost:1337/create', formData, response => {
+        window.location.href = response.link
+      })
     }
 
-    // TODO: const submitFormOnEnter = event => if (event.keyCode === 13) event.preventDefault()
-    // $('#searchtext').keypress(submitFormOnEnter)
     form.submit(submitForm)
 
   })

@@ -1,0 +1,9 @@
+{
+	"globals": {
+		"sails": true,
+		"MeasureController": true,
+		"RecipeController": true,
+		"StudentController": true,
+		"ClientService": true
+	}
+}

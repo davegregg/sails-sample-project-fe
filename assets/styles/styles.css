@@ -41,3 +41,7 @@ body {
   font-weight: normal;
   font-size: 0.75em;
 }
+
+#createMeasureForm .badge {
+  background-color: #ec971f;
+}

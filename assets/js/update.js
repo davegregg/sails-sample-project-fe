@@ -22,8 +22,8 @@
  * 9. Use jQuery validate and add validation to the form with the following requirements
  *    First Name - required, at least 2 characters
  *    Last Name  - required, at least 2 characters
- *	  start_date - make sure date is yyyy-mm-dd
- *	  ADD any other validation that makes you happy
+ *    start_date - make sure date is yyyy-mm-dd
+ *    ADD any other validation that makes you happy
  *
  * 10. Make the color of the error text red
  *

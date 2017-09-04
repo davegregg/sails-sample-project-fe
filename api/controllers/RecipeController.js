@@ -35,24 +35,24 @@ GET http://my-fantastic-recipes-api.herokuapp.com/api/recipes
   /**
    * `RecipeController.show()`
 ---
-GET http://localhost:1337/1
+GET http://localhost:1337/417
 ---
-GET http://my-fantastic-recipes-api.herokuapp.com/api/recipes/1
+GET http://my-fantastic-recipes-api.herokuapp.com/api/recipes/417
 ---
    */
-   show: (req, res) => ClientService.getRecipe(res, req.param('id')),
+  show: (req, res) => ClientService.getRecipe(res, req.param('id')),
 
 
   /**
    * `RecipeController.update()`
    */
-   update: (req, res) => ClientService.updateRecipe(res, req.param('id')),
+  update: (req, res) => ClientService.updateRecipe(res, req.param('id')),
 
 
   /**
    * `RecipeController.destroy()`
    */
-   destroy: (req, res) => ClientService.deleteRecipe(res, req.param('id')),
+  destroy: (req, res) => ClientService.deleteRecipe(res, req.param('id')),
 
 
 };

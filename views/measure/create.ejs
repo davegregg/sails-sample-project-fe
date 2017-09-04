@@ -1,0 +1,42 @@
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Add Measurements</a></li>
+</ol>
+
+<br/>
+<%- partial ('../partials/statusmessage.ejs') %>
+<h2>Add Measurements</h2>
+<form class="form-horizontal" id="createMeasureForm">
+  <div class="form-group">
+    <% if (!ingredients.error) { %>
+      <% for (let ingredient of ingredients) { %>
+        <label for="quantityForIngredient<%= ingredient.id %>"><%=: ingredient.name | capitalize %>&nbsp;</label>
+        <div id="ingredient<%= ingredient.id %>" class="input-group">
+          <input required name="quantity" data-ingredient-id="<%= ingredient.id %>" id="quantityForIngredient<%= ingredient.id %>" class="quantity form-control" placeholder="How much of this ingredient does this recipe call for?" type="text" class="form-control" aria-label="...">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="badge">!</span>&nbsp;<span class="selectedUnitName" data-selected-unit-index="">Unit</span> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <% units.forEach ((unitName, unitIndex) => { %>
+                <li class="units" data-ingredient-id="<%= ingredient.id %>" data-unit-index="<%= unitIndex %>"><%= unitName %></li>
+              <% }) %>
+            </ul>
+          </div><!-- /btn-group -->
+        </div>
+      <% } %>
+    <% } else { %>
+      <div class="alert alert-danger" role="alert">
+        <p>
+          Error: <strong><%=: ingredients.error | downcase %></strong>
+        </p>
+        <p>
+          <code><%-: JSON.stringify(ingredients, null, 2) | replace:/,/g,',<br />' %></code>
+        </p>
+      </div>
+    <% } %>
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Add Measurements</button>
+    </div>
+  </div>
+</form>
