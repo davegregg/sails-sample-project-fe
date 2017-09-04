@@ -17,7 +17,7 @@ POST http://my-fantastic-recipes-api.herokuapp.com/api/ingredients/:ingredientId
    */
   create: (req, res) => {
     if (req.method === 'GET') ClientService.getIngredients(res, req)
-    if (req.method === 'POST') ClientService.createMeasures(res, req.body)
+    if (req.method === 'POST') ClientService.createMeasures(res, req)
   }
 
 
