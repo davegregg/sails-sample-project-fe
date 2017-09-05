@@ -105,8 +105,30 @@ POST http://my-fantastic-recipes-api.herokuapp.com/api/ingredients/:ingredientId
     res.view('recipe/update', { recipe: data })
   }),
 
-  deleteRecipe: (res, id) => client.get(`${base}/recipes/${id}`, data => {
-    res.view('recipe/destroy', { recipe: data })
-  }),
+  
+/*
+---
+DELETE http://my-fantastic-recipes-api.herokuapp.com/api/recipes/:recipeId
+---
+// /api/recipes/:recipeId (Does not accept an object)
+*/
+
+  deleteRecipe: function (res, req) {
+
+    if (req.method === "GET") {
+      
+      client.get(`${base}/recipes/${req.params.id}`, data => {
+        return res.view('recipe/destroy', {recipes: data});
+      })
+      
+    } else if (req.method === "POST") {
+      
+      client.delete(`${base}/recipes/${req.params.id}`, function (data) {
+        return res.redirect('recipe/destroy');
+      })
+
+    }
+  
+  },
 
 }

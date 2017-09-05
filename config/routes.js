@@ -49,6 +49,6 @@ module.exports.routes = {
   'GET /'                          :'RecipeController.index',
   'GET /:id'                       :'RecipeController.show',
   'GET /update/:id'                :'RecipeController.update',
-  'GET /destroy/:id'               :'RecipeController.destroy'
+  'GET /destroy'               :'RecipeController.destroy'
 
 };
