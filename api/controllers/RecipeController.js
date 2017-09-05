@@ -52,7 +52,5 @@ GET http://my-fantastic-recipes-api.herokuapp.com/api/recipes/417
   /**
    * `RecipeController.destroy()`
    */
-  destroy: (req, res) => ClientService.deleteRecipe(res, req.param('id')),
-
-
+  destroy: (req, res) => ClientService.deleteRecipe(res, req),
 };

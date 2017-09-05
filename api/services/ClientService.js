@@ -40,13 +40,16 @@ const stub = [ // TODO: Remove me
 
 module.exports = {
 
+
   getRecipes: res => client.get(`${base}/recipes`, recipesRes => {
     res.view('recipe/index', { recipes: recipesRes })
   }),
 
+
   getRecipe: (res, id, view = 'recipe/show') => client.get(`${base}/recipes/${id}`, recipeRes => {
     res.view(view, { recipe: recipeRes })
   }),
+
 
   createRecipe: (res, body) => {
     prettyPrint('createRecipe body (clientservice)', body)
@@ -73,13 +76,11 @@ module.exports = {
     })
   },
 
+
   updateRecipe: (res, id) => client.get(`${base}/recipes/${id}`, data => {
     res.view('recipe/update', { recipe: data })
   }),
 
-  deleteRecipe: (res, id) => client.get(`${base}/recipes/${id}`, data => {
-    res.view('recipe/destroy', { recipe: data })
-  }),
 
   getIngredients: (res, req) => {
     client.get(`${base}/recipes/${req.params.id}/ingredients`, ingredientsRes => {
@@ -93,6 +94,7 @@ module.exports = {
       })
     })
   },
+
 
 /*
 ---
@@ -118,6 +120,7 @@ POST http://my-fantastic-recipes-api.herokuapp.com/api/ingredients/:ingredientId
     })
   },
 
+
   createInstructions: (res, req) => {
     const args = buildArgs(req.body)
     prettyPrint('createInstructions POST args', args)
@@ -126,6 +129,31 @@ POST http://my-fantastic-recipes-api.herokuapp.com/api/ingredients/:ingredientId
         return res.view({ 'recipe/show': { recipe: recipeRes } })
       })
     })
+  },
+
+/*
+---
+DELETE http://my-fantastic-recipes-api.herokuapp.com/api/recipes/:recipeId
+---
+// /api/recipes/:recipeId (Does not accept an object)
+*/
+
+  deleteRecipe: function (res, req) {
+
+    if (req.method === "GET") {
+
+      client.get(`${base}/recipes/${req.params.id}`, data => {
+        return res.view('recipe/destroy', {recipes: data});
+      })
+      
+    } else if (req.method === "POST") {
+
+      client.delete(`${base}/recipes/${req.params.id}`, function (data) {
+        return res.redirect('recipe/destroy');
+      })
+
+    }
+
   },
 
 }

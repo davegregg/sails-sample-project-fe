@@ -7,17 +7,17 @@
 
 <%- partial ('../partials/statusmessage.ejs') %>
 
-<h2>Delete Student</h2>
+<h2>Delete Recipe</h2>
 
 <div style="text-align: center; padding-top:50px">
   <form action="/delete" method="POST">
     <div class="form-group">
-      <label for="student_id">SELECT A STUDENT TO DELETE</label><br/>
-      <select id="student_id" name="student_id">
-      <% if(typeof students != "undefined" && students.length > 0){ %>
-        <% students.forEach(function(student){ %>
-          <option value="<%= student.student_id %>">
-            <%= student.last_name + ", " +  student.first_name %>
+      <label for="recipe">SELECT A RECIPE TO DELETE</label><br/>
+      <select id="recipeId" name="recipeId">
+      <% if(typeof recipes != "undefined" && recipes.length > 0){ %>
+        <% recipes.forEach(function(recipe){ %>
+          <option value="<%= recipe.recipeId %>">
+            <%= recipe.name %>
           </option>
         <% }) %>
       <% } %>
@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-danger">
-        DELETE STUDENT
+        DELETE RECIPE
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
       </button>
     </div>
