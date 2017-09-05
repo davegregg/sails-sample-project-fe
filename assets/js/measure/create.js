@@ -56,7 +56,7 @@
 
     $('#createMeasureForm').submit(submitForm)
 
-    $('.units').click(function (event) {
+    $('.units').click(function() {
       const thisUnit = $(this)
       const id = thisUnit.data('ingredient-id')
 

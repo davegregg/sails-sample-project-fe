@@ -2,8 +2,8 @@
 	"globals": {
 		"sails": true,
 		"MeasureController": true,
+		"InstructionController": true,
 		"RecipeController": true,
-		"StudentController": true,
 		"ClientService": true
 	}
 }
