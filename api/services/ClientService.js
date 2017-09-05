@@ -89,7 +89,8 @@ module.exports = {
         res.view('measure/create', {
           recipe: recipeRes,
           ingredients: ingredientsRes,
-          units: readableUnits })
+          units: readableUnits
+        })
       })
     })
   },
