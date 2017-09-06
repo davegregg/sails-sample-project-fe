@@ -10,7 +10,7 @@ const ensureArray = array => array !== undefined ? [].concat(array) : []
 const lastIndex = array => array.length - 1
 
 const prettyPrint = (ident, obj) => sails.log(`${ident}: ${JSON.stringify(obj, null, 2)}`)
-const stub = [
+const stub = [ // TODO: Remove me
   {
     "id": 1,
     "name": "The good stuff",
@@ -40,20 +40,16 @@ const stub = [
 
 module.exports = {
 
+
   getRecipes: res => client.get(`${base}/recipes`, recipesRes => {
     res.view('recipe/index', { recipes: recipesRes })
   }),
 
-  getRecipe: (res, id) => client.get(`${base}/recipes/${id}`, recipeRes => {
-    res.view('recipe/show', { recipe: recipeRes })
+
+  getRecipe: (res, id, view = 'recipe/show') => client.get(`${base}/recipes/${id}`, recipeRes => {
+    res.view(view, { recipe: recipeRes })
   }),
 
-  getIngredients: (res, req) => {
-    client.get(`${base}/recipes/${req.params.id}/ingredients`, ingredientsRes => {
-      prettyPrint('ingredientsRes', ingredientsRes)
-      res.view('measure/create', { ingredients: ingredientsRes, units: readableUnits })
-    })
-  },
 
   createRecipe: (res, body) => {
     prettyPrint('createRecipe body (clientservice)', body)
@@ -80,33 +76,85 @@ module.exports = {
     })
   },
 
+
+  updateRecipe: (res, id) => client.get(`${base}/recipes/${id}`, data => {
+    res.view('recipe/update', { recipe: data })
+  }),
+
+
+  getIngredients: (res, req) => {
+    client.get(`${base}/recipes/${req.params.id}/ingredients`, ingredientsRes => {
+      prettyPrint('ingredientsRes', ingredientsRes)
+      client.get(`${base}/recipes/${req.params.id}`, recipeRes => {
+        prettyPrint('recipeRes', recipeRes)
+        res.view('measure/create', {
+          recipe: recipeRes,
+          ingredients: ingredientsRes,
+          units: readableUnits
+        })
+      })
+    })
+  },
+
+
 /*
 ---
 POST http://my-fantastic-recipes-api.herokuapp.com/api/ingredients/:ingredientId/measures
 ---
 // /api/ingredients/:ingredientId/measures (accepts an object)
 */
-  createMeasures: (res, body) => {
-    body.forEach(function(ingredient, index) {
+  createMeasures: (res, req) => {
+    req.body.forEach(function(ingredient, index) {
       const args = buildArgs({
         quantity: ingredient.measure.quantity,
         units: enumUnits[ingredient.measure.enumUnitsIndex]
       })
       prettyPrint('createMeasures POST args', args)
       client.post(`${base}/ingredients/${ingredient.id}/measures`, args, data => {
-        if (index === lastIndex(body)) { // TODO: Use a promise instead
-          return res.json({ link: '/' })
+        if (index === lastIndex(req.body)) { // TODO: Use a promise instead
+          client.get(`${base}/recipes/${req.params.id}`, recipeRes => {
+            // return res.json({ link: '/' })
+            return res.view({ 'instruction/create': { recipe: recipeRes } })
+          })
         }
       })
     })
   },
 
-  updateRecipe: (res, id) => client.get(`${base}/recipes/${id}`, data => {
-    res.view('recipe/update', { recipe: data })
-  }),
 
-  deleteRecipe: (res, id) => client.get(`${base}/recipes/${id}`, data => {
-    res.view('recipe/destroy', { recipe: data })
-  }),
+  createInstructions: (res, req) => {
+    const args = buildArgs(req.body)
+    prettyPrint('createInstructions POST args', args)
+    client.post(`${base}/recipes/${req.params.id}/instructions`, args, data => {
+      client.get(`${base}/recipes/${req.params.id}`, recipeRes => {
+        return res.view({ 'recipe/show': { recipe: recipeRes } })
+      })
+    })
+  },
+
+/*
+---
+DELETE http://my-fantastic-recipes-api.herokuapp.com/api/recipes/:recipeId
+---
+// /api/recipes/:recipeId (Does not accept an object)
+*/
+
+  deleteRecipe: function (res, req) {
+
+    if (req.method === "GET") {
+
+      client.get(`${base}/recipes/${req.params.id}`, data => {
+        return res.view('recipe/destroy', {recipes: data});
+      })
+      
+    } else if (req.method === "POST") {
+
+      client.delete(`${base}/recipes/${req.params.id}`, function (data) {
+        return res.redirect('recipe/destroy');
+      })
+
+    }
+
+  },
 
 }

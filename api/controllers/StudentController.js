@@ -22,7 +22,7 @@ module.exports = {
 
         var args = {
             data: req.body,
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/xml" }
         };
 
         client.post(endpoint, args, function (data, response) {

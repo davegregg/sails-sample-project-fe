@@ -42,13 +42,19 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'GET /create'                    :'RecipeController.create',
-  'GET /create/:id/measurements'   :'MeasureController.create',
-  'POST /create/:id/measurements'  :'MeasureController.create',
-  'POST /create'                   :'RecipeController.create',
-  'GET /'                          :'RecipeController.index',
-  'GET /:id'                       :'RecipeController.show',
-  'GET /update/:id'                :'RecipeController.update',
-  'GET /destroy/:id'               :'RecipeController.destroy'
+  'GET /create'                                      :'RecipeController.create',
+  'POST /create'                                     :'RecipeController.create',
+  'GET /'                                            :'RecipeController.index',
+  'GET /:id'                                         :'RecipeController.show',
+  'GET /update/:id'                                  :'RecipeController.update',
+  'GET /destroy'                                     :'RecipeController.destroy',
+
+  'GET /create/:id/measurements'                     :'MeasureController.create',
+  'POST /create/:id/measurements'                    :'MeasureController.create',
+  // 'POST /:recipeId/measurements/:measureId'          :'MeasureController.destroy',
+
+  'GET /create/:id/instructions'                     :'InstructionController.create',
+  'POST /create/:id/instructions'                    :'InstructionController.create',
+  // 'POST /:recipeId/instructions/:instructionId'      :'InstructionController.destroy',
 
 };
